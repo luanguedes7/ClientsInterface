@@ -6,6 +6,18 @@
 <div class="container">
 
     <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" *ngIf="successMessage">
+               {{ successMessage }}
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+                {{ errorMessage }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-2">
             <button class="btn btn-warning" (click)="newRegister()">
                 <i class="fa fa-plus"></i> New
@@ -39,11 +51,37 @@
                             <button class="btn btn-primary" routerLink="/clients-form/{{ client.id }}">
                                 <i class="fa fa-edit"></i>
                             </button>
+
+                            <button class="btn btn-danger" (click)="prepareDelete(client)" data-toggle="modal" data-target="#modalDelete">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <div id="modalDelete" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>
+                        Deletion
+                    </h4>
+                </div>
+
+                <div class="modal-body" *ngIf="clientSelected">
+                    Do you confirm the deletion of client: {{ clientSelected.name }}?
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="deleteClient()" data-dismiss="modal">Confirm</button>
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
